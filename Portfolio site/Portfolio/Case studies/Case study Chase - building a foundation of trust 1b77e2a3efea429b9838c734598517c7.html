@@ -1,0 +1,726 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Case study: Chase - building a foundation of trust</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="1b77e2a3-efea-429b-9838-c734598517c7" class="page sans"><header><img class="page-cover-image" src="https://www.notion.so/images/page-cover/gradients_11.jpg" style="object-position:center 40%"/><div class="page-header-icon page-header-icon-with-cover"><img class="icon" src="Case%20study%20Chase%20-%20building%20a%20foundation%20of%20trust/blue_chase_logo.jpg"/></div><h1 class="page-title" dir="auto">Case study: Chase - building a foundation of trust</h1><p class="page-description" dir="auto"></p><table class="properties"><tbody><tr class="property-row property-row-text"><th><span class="icon property-icon"><img src="https://www.notion.so/icons/description_gray.svg" style="width:14px;height:14px;display:block"/></span>My role</th><td>I was a design manager with teams across different platforms—web, mobile, developer ecosystem, public platforms, and design systems—managing other managers, content designers, and product designers.</td></tr><tr class="property-row property-row-multi_select"><th><span class="icon property-icon"><img src="https://www.notion.so/icons/list_gray.svg" style="width:14px;height:14px;display:block"/></span>Tags</th><td><span class="selected-value select-value-color-gray">Content Design</span><span class="selected-value select-value-color-red">Leadership</span><span class="selected-value select-value-color-blue">Management</span><span class="selected-value select-value-color-yellow">Product design</span><span class="selected-value select-value-color-purple">Strategy</span><span class="selected-value select-value-color-orange">UX Design</span></td></tr><tr class="property-row property-row-text"><th><span class="icon property-icon"><img src="https://www.notion.so/icons/description_gray.svg" style="width:14px;height:14px;display:block"/></span>Tldr:</th><td>We successfully increased usage of our digital products, reduced costs and call center times, and won the Mobile App of the Year award in 2020 from J.D. Power and Associates.</td></tr></tbody></table></header><div class="page-body"><div style="display:contents" dir="auto"><hr id="860301be-30ba-45b8-b4e4-f8cb185b0d09"/></div><div style="display:contents" dir="ltr"><figure id="57473072-4dc1-4799-b9ee-fc10184fdc1a" class="image"><a href="Case%20study%20Chase%20-%20building%20a%20foundation%20of%20trust/Screenshot_2024-05-26_at_4.42.34_PM.png"><img style="width:707.9971313476562px" src="Case%20study%20Chase%20-%20building%20a%20foundation%20of%20trust/Screenshot_2024-05-26_at_4.42.34_PM.png"/></a></figure></div><div style="display:contents" dir="auto"><h3 id="9fcdf191-1a07-4aa4-b3d8-60402fcdce20" class=""><span style="border-bottom:0.05em solid">Background</span></h3></div><div style="display:contents" dir="auto"><p id="798fd83d-7c3a-41d2-a8e8-ae60cc6ae662" class="">Chase had an 150-year history of in-person, bank-on-every-corner-strategy, we were tasked with growing digital banking… And then the pandemic hit.</p></div><div style="display:contents" dir="auto"><p id="1cbda1a3-2888-461d-b6a5-060b1181a64f" class="">Everything was thrown into chaos and 76 million Chase customers were panicking about not being able to bank in person safely. Additionally, travel cancellations and changes contributed to longer call center wait times—over 8 hours—and increased costs.</p></div><div style="display:contents" dir="auto"><h3 id="e297853a-b6dd-4b73-9420-517b1fc75520" class=""><span style="border-bottom:0.05em solid">Challenge</span></h3></div><div style="display:contents" dir="auto"><p id="ab4b8daa-2c82-4204-ba28-6f39728e7e02" class="">While we had a mandate to increase digital banking, the pandemic acted as a forcing function. The bank was incentivized to quickly move everyone (or as many as possible) to digital banking. People who had previously been very resistant engaged much more than they normally would have. It presented an obvious opportunity for us to upgrade the website and app in key competitive ways that would change the way the bank functioned going forward.</p></div><div style="display:contents" dir="auto"><h3 id="e75b7358-e5ec-458b-85fc-55eb59625db3" class=""><span style="border-bottom:0.05em solid">Goals</span></h3></div><div style="display:contents" dir="auto"><ol type="1" id="322199cb-ad4a-4952-a156-afd4fdd1485f" class="numbered-list" start="1"><li>Reduce customer anxiety. </li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="355d4dbe-5278-47d6-a652-816d39dae6b9" class="numbered-list" start="2"><li>Reduce call center volume.</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="9d6756c6-e0d3-4cb1-8bfa-949a074a2db5" class="numbered-list" start="3"><li>Increase use of digital services by building more ways for people to bank digitally starting with a high friction/high frequency space. </li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="f2fcb4e9-8797-44db-8ee6-8f2cd1d69b4f" class="numbered-list" start="4"><li>Get people comfortable quickly with banking online.</li></ol></div><div style="display:contents" dir="auto"><h3 id="dcfd0563-14ef-4dfa-ac98-aeaa51b6bc1d" class=""><span style="border-bottom:0.05em solid">Research Insights</span></h3></div><div style="display:contents" dir="auto"><p id="06fac4a9-1369-4aed-a16e-b8ecb442358b" class="">Chase was a trusted brand because:</p></div><div style="display:contents" dir="auto"><ul id="81db75d3-0885-49eb-ad0e-a4f757ca00d1" class="bulleted-list"><li style="list-style-type:disc">Bank loyalty was handed down through generations</li></ul></div><div style="display:contents" dir="auto"><ul id="c8461bfd-3d9c-4eea-808b-d39f0af95dd3" class="bulleted-list"><li style="list-style-type:disc">A branch on every corner was also an advertising strategy; the brick and mortar banks felt like part of the community </li></ul></div><div style="display:contents" dir="auto"><ul id="21e4e2fd-fdf7-4b52-b1fc-766ee6b73658" class="bulleted-list"><li style="list-style-type:disc">There was a perception, especially among Chase customers that you could only trust a person with your money</li></ul></div><div style="display:contents" dir="auto"><ul id="397acee2-cd1d-4e0e-99c9-2bba578bd3df" class="bulleted-list"><li style="list-style-type:disc">The issue of privacy and hacked data was in the news (see Cambridge Analytica) even though people didn’t exactly understand it, it was a worry in the background; especially in relation to banking.</li></ul></div><div style="display:contents" dir="auto"><h3 id="61ac58e3-7fec-44a6-aec3-b5d1c7f7b183" class=""><span style="border-bottom:0.05em solid">Approach + Strategy</span></h3></div><div style="display:contents" dir="auto"><ul id="55531808-7752-4a7d-a678-996aad8d330e" class="toggle"><li><details open=""><summary>First: we needed to prioritize helping people. </summary><div style="display:contents" dir="auto"><p id="94289246-2ec7-4cbd-8ee5-a944f233aab8" class="">My team pitched in to help support Chase’s distribution of loan applications for the Paycheck Protection Program that the federal government provided to small businesses to help them keep employees on during the pandemic. </p></div><div style="display:contents" dir="ltr"><figure id="904abd87-fa61-4276-858b-da144656862e" class="image"><a href="Case%20study%20Chase%20-%20building%20a%20foundation%20of%20trust/Screenshot_2024-04-17_at_9.23.09_PM.png"><img style="width:2576px" src="Case%20study%20Chase%20-%20building%20a%20foundation%20of%20trust/Screenshot_2024-04-17_at_9.23.09_PM.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="ce4a15d2-d5b0-49bc-ad5c-1a23a0ccc221" class="">
+</p></div></details></li></ul></div><div style="display:contents" dir="auto"><ul id="14cc8ac1-8a76-4c18-ab93-aadd69dbf633" class="toggle"><li><details open=""><summary>COVID Hub</summary><div style="display:contents" dir="auto"><p id="13957196-86aa-4ee4-8b7c-a240b8ba4124" class="">A COVID hub was quickly spun up to help people do as much as they could online, as we began to think about what we could quickly digitize.</p></div><div style="display:contents" dir="ltr"><figure id="e1026c56-4ba2-4fb0-b4ea-38253f41a897" class="image"><a href="Case%20study%20Chase%20-%20building%20a%20foundation%20of%20trust/Pandemic_hub_relevant_parts.png"><img style="width:720px" src="Case%20study%20Chase%20-%20building%20a%20foundation%20of%20trust/Pandemic_hub_relevant_parts.png"/></a></figure></div></details></li></ul></div><div style="display:contents" dir="auto"><p id="8e6e1601-28d9-4d76-b8e9-180035fe2c88" class="">We’d already been thinking about how to build trust for the bank, and what privacy &amp; data meant to people. Based on what we knew and external research, I designed the content strategy for “AccountSafe” which ultimately led to a safety and security hub where many privacy &amp; data products lived. The mission:</p></div><div style="display:contents" dir="ltr"><figure class="block-color-teal_background callout" style="white-space:pre-wrap;display:flex" id="74dcd704-da2b-4755-940e-4caec815075a"><div style="font-size:1.5em"><span class="icon">💯</span></div><div style="width:100%">Create a differentiated, marketable experience that engages people to care about and derive value from managing their data.</div></figure></div><div style="display:contents" dir="auto"><p id="f4f24e22-c205-4b79-9077-27acdd7b1117" class="">I presented this deck to various teams to build alignment and all the way up to our GM, Product Owner, Chase Digital Channels and Platforms. It included research, personas, design and content strategy, content design and north star guidance.</p></div><div style="display:contents" dir="auto"><p id="5e2bc0ec-02dc-4e6e-ae82-5437b3c3f02e" class=""><strong>AccountSafe Deck</strong></p></div><div style="display:contents" dir="ltr"><figure id="37820fa9-198e-4f82-bbee-8e326188c7bc"><div class="source"><a href="Case%20study%20Chase%20-%20building%20a%20foundation%20of%20trust/CS_AccountSafe_Deck_Dec102019.pdf">https://prod-files-secure.s3.us-west-2.amazonaws.com/f687b912-48a7-4386-81ce-79ad407c8b77/06e93813-6d8c-4427-8118-6e11ea259532/CS_AccountSafe_Deck_Dec102019.pdf</a></div></figure></div><div style="display:contents" dir="auto"><h3 id="e8460872-3124-4948-b5ab-daf5128d050f" class=""><span style="border-bottom:0.05em solid">Design</span></h3></div><div style="display:contents" dir="auto"><p id="f222e3bb-0e8c-41c3-8ab5-9f63bca7724e" class="">One space ripe for improvement given the 30 million cards out in the wild, was a digital way to address fraud.</p></div><div style="display:contents" dir="auto"><p id="1e88126e-fb61-44d1-bd10-fe3a0382e0d4" class="">The existing flow asked people<strong> to call</strong> in cases of fraud. Imagine needing to freeze your card and then have to wait on hold for 9+ hours to talk to someone. This flow resulted in 8 million yearly servicing calls.</p></div><div style="display:contents" dir="ltr"><figure id="09a76007-5ccb-4676-8e79-abd940381559" class="image"><a href="Case%20study%20Chase%20-%20building%20a%20foundation%20of%20trust/ca7757e0-0038-45fd-8523-dbe3bd4e1723.png"><img style="width:249.22118380062307px" src="Case%20study%20Chase%20-%20building%20a%20foundation%20of%20trust/ca7757e0-0038-45fd-8523-dbe3bd4e1723.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="fab73cd7-6a4f-444d-853a-7bcaba326158" class="">The updated flow allowed people to lock and unlock their cards quickly and easily. It also highlighted the digital wallet feature, which updated automatically so users didn’t have to wait to receive their new card by mail to continue making purchases.</p></div><div style="display:contents" dir="ltr"><figure id="db793e2c-32db-4d57-980c-a8c75bcdae61" class="image"><a href="Case%20study%20Chase%20-%20building%20a%20foundation%20of%20trust/Screenshot_2024-07-28_at_5.15.28_PM.png"><img style="width:1426px" src="Case%20study%20Chase%20-%20building%20a%20foundation%20of%20trust/Screenshot_2024-07-28_at_5.15.28_PM.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="94885483-76da-46e6-b4ee-9109f6b47f4c" class="">Design updates:</p></div><div style="display:contents" dir="auto"><ul id="612ac4d8-f793-45e7-8a56-0f85bcd4ac30" class="bulleted-list"><li style="list-style-type:disc">Users first selected a card, leading them to options across the top for &#x27;lock &amp; unlock.’</li></ul></div><div style="display:contents" dir="auto"><ul id="64f85c25-6377-4e91-87e3-17f3f64cc8cf" class="bulleted-list"><li style="list-style-type:disc">A screen was dedicated to the existence of a digital wallet: Screens 3 and 4 (above) show two variations of the screen that we tested.</li></ul></div><div style="display:contents" dir="auto"><ul id="091d42f1-afe9-47ed-b67c-2f4c9e7368e6" class="bulleted-list"><li style="list-style-type:disc">The UI copy in screen 5 was meant to build trust (because this was a space where people felt their card was only properly secured when they spoke to someone).</li></ul></div><div style="display:contents" dir="ltr"><figure class="block-color-teal_background callout" style="white-space:pre-wrap;display:flex" id="50361b2f-4eea-40a0-99b2-eb68b4ac911b"><div style="font-size:1.5em"><span class="icon">➡️</span></div><div style="width:100%">We debated choosing to enter the flow through the security center button across the top but decided it would be clearing to enter by choosing which card had been compromised.</div></figure></div><div style="display:contents" dir="auto"><ul id="b7ea2eae-01b7-49bb-82f8-80e0d47f496c" class="toggle"><li><details open=""><summary>Later that was changed to a “security and privacy” button, plus an ability to customize buttons across the top.</summary></details></li></ul></div><div style="display:contents" dir="ltr"><figure id="67b46eb2-643e-425d-a91e-b4437e3e581c" class="image"><a href="Case%20study%20Chase%20-%20building%20a%20foundation%20of%20trust/IMG_7808.png"><img style="width:240px" src="Case%20study%20Chase%20-%20building%20a%20foundation%20of%20trust/IMG_7808.png"/></a></figure></div><div style="display:contents" dir="ltr"><figure id="bfd3fa07-f5d9-4a8a-a2bb-52c1f2fa1724" class="image"><a href="Case%20study%20Chase%20-%20building%20a%20foundation%20of%20trust/IMG_7809_2.png"><img style="width:240px" src="Case%20study%20Chase%20-%20building%20a%20foundation%20of%20trust/IMG_7809_2.png"/></a></figure></div><div style="display:contents" dir="ltr"><figure id="4eb432e5-11c9-4d8b-a5e5-a27c4a27171f" class="image"><a href="Case%20study%20Chase%20-%20building%20a%20foundation%20of%20trust/IMG_7811.png"><img style="width:240px" src="Case%20study%20Chase%20-%20building%20a%20foundation%20of%20trust/IMG_7811.png"/></a></figure></div><div style="display:contents" dir="ltr"><figure id="b158d9bc-19ad-403f-8967-d2f28a7e0a8a" class="image"><a href="Case%20study%20Chase%20-%20building%20a%20foundation%20of%20trust/IMG_7810_2.png"><img style="width:240px" src="Case%20study%20Chase%20-%20building%20a%20foundation%20of%20trust/IMG_7810_2.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="cabec0d6-e43a-43af-a487-5d47736af15e" class="">
+</p></div><div style="display:contents" dir="auto"><p id="4bfaa0ad-718d-4c5b-84fb-b4cafdee0b00" class="">The Security and Privacy Hub grouped products related to privacy, data, and security in one place. We used language that reflected how different people engaged with privacy and security at various levels. Our approach was collaborative: Security &amp; Privacy was something we needed to tackle together. We provided the tools, and customers activated them.</p></div><div style="display:contents" dir="ltr"><figure id="b5b06509-30c2-463e-a122-f00b9d5cf286" class="image"><a href="Case%20study%20Chase%20-%20building%20a%20foundation%20of%20trust/Screenshot_2024-05-26_at_4.42.20_PM.png"><img style="width:720px" src="Case%20study%20Chase%20-%20building%20a%20foundation%20of%20trust/Screenshot_2024-05-26_at_4.42.20_PM.png"/></a></figure></div><div style="display:contents" dir="ltr"><figure id="67974f0f-6865-40df-8a2a-c4c5c2f98fb7" class="image"><a href="Case%20study%20Chase%20-%20building%20a%20foundation%20of%20trust/IMG_7809.png"><img style="width:144px" src="Case%20study%20Chase%20-%20building%20a%20foundation%20of%20trust/IMG_7809.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="0a19d8b4-398a-4a6a-9992-4f1c98bde9c8" class="">
+</p></div><div style="display:contents" dir="auto"><p id="06145615-6022-4a30-9c0e-1ca0e418f010" class=""><span style="border-bottom:0.05em solid">Outcomes</span></p></div><div style="display:contents" dir="auto"><ul id="f713cb94-2574-4880-9c68-2055c58d1136" class="bulleted-list"><li style="list-style-type:disc">[%] increase in people using digital to report fraud. (<em>Intentionally not sharing actual data</em>.)</li></ul></div><div style="display:contents" dir="auto"><ul id="04e9fc17-2b98-4f99-8067-36082fbb473e" class="bulleted-list"><li style="list-style-type:disc">Improved trust: 54% of consumers agreed that they use digital banking tools more due to the pandemic today than they did last year.</li></ul></div><div style="display:contents" dir="auto"><ul id="716f3711-8384-419e-9aef-80f7b7cf79f3" class="bulleted-list"><li style="list-style-type:disc">As of Q3 2020, Chase had nearly 55 million digitally active customers, an increase of 6% from the same time the previous year. </li></ul></div><div style="display:contents" dir="auto"><ul id="00c0c0de-ac09-447d-aef0-97f1b81b01e7" class="bulleted-list"><li style="list-style-type:disc">40% of customers deposited their check on mobile, up from 30% before COVID-19</li></ul></div><div style="display:contents" dir="auto"><ul id="c15aa2b3-070d-462e-956d-ac2b5e22fe9c" class="bulleted-list"><li style="list-style-type:disc">JD Power and Associates named the Chase mobile app #1 in 2020</li></ul></div><div style="display:contents" dir="auto"><ul id="2a9ec74f-a2ab-4265-a913-0d73822caab8" class="bulleted-list"><li style="list-style-type:disc">The thinking at Chase profoundly changed:</li></ul></div><div style="display:contents" dir="auto"><blockquote id="db53e185-ab8d-4c59-a7ac-89bca9a4210a" class="">“The pandemic has demonstrated that digital banking is essential for consumers of all ages to confidently manage their finances. This new research reaffirms our commitment to creating features that make it easier and faster for customers to bank digitally with Chase.” —Allison Beer, Head of Digital at Chase. </blockquote></div><div style="display:contents" dir="auto"><h3 id="9263255c-c952-46ed-8b92-64e680ee5118" class=""><span style="border-bottom:0.05em solid">Leadership</span></h3></div><div style="display:contents" dir="auto"><ul id="79215500-ae8f-4b2b-b71e-eee4b08e5c83" class="bulleted-list"><li style="list-style-type:disc">Built a content strategy curriculum to up-level the team’s skills based on T-shaped skills for content strategy.</li></ul></div><div style="display:contents" dir="auto"><ul id="38d04ba2-536a-40d9-8a29-0d0a3acb4067" class="bulleted-list"><li style="list-style-type:disc">Led through the pandemic crisis</li></ul></div><div style="display:contents" dir="auto"><ul id="94671c72-f3ec-46bd-9757-0ec9d526d516" class="bulleted-list"><li style="list-style-type:disc">DEI training and led related workshops.</li></ul></div><div style="display:contents" dir="auto"><p id="dcea87a5-20b8-4e3a-b3ba-c40f1ed53b84" class="">
+</p></div><div style="display:contents" dir="auto"><hr id="859566b8-40a6-46a4-a34e-18b399d37a1c"/></div><div style="display:contents" dir="auto"><p id="e4797e66-f9d7-4c57-ae7e-75f525052325" class="">
+</p></div><div style="display:contents" dir="auto"><p id="a1031a42-171f-4c11-b9d6-e43457dcc884" class="">
+</p></div><div style="display:contents" dir="auto"><p id="2053203a-b2a2-4230-9316-d14e7d05d0bc" class="">
+</p></div><div style="display:contents" dir="auto"><p id="ab6eefca-e8bb-4a36-b2e6-14a9aa968998" class="">
+</p></div><div style="display:contents" dir="auto"><p id="670fe0d5-f418-4e16-b61f-25af464b521a" class="">
+</p></div><div style="display:contents" dir="auto"><p id="3c62d78f-832e-431d-babe-8a5a8099d82e" class="">
+</p></div><div style="display:contents" dir="auto"><p id="4bdd83a5-3afc-4c97-8b82-b9d7cfcdfb7c" class="">
+</p></div><div style="display:contents" dir="auto"><p id="12e14902-a017-419e-9182-b1e9dd51ff2c" class="">
+</p></div><div style="display:contents" dir="auto"><p id="7e8d7cd0-c1e6-47a6-a670-2aba07897b87" class="">
+</p></div></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

@@ -1,0 +1,717 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Meta case study: Changing the experience of privacy</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="bfed2cb9-646d-40cd-b870-58dabda40b15" class="page sans"><header><img class="page-cover-image" src="Meta%20case%20study%20Changing%20the%20experience%20of%20privacy/screenshot_(1).png" style="object-position:center 9.089999999999998%"/><div class="page-header-icon page-header-icon-with-cover"><img class="icon" src="Meta%20case%20study%20Changing%20the%20experience%20of%20privacy/meta-logo-meta-by-facebook-icon-editorial-logo-for-social-media-free-vector-300x300.webp"/></div><h1 class="page-title" dir="auto">Meta case study: Changing the experience of privacy</h1><p class="page-description" dir="auto"></p><table class="properties"><tbody><tr class="property-row property-row-text"><th><span class="icon property-icon"><img src="https://www.notion.so/icons/description_gray.svg" style="width:14px;height:14px;display:block"/></span>My role</th><td>I was the head of Content Design on Consumer Privacy Experience and part of the cross-functional leadership team. I managed 6+ content designers across numerous privacy channels working on high impact, high visibility projects.</td></tr><tr class="property-row property-row-multi_select"><th><span class="icon property-icon"><img src="https://www.notion.so/icons/list_gray.svg" style="width:14px;height:14px;display:block"/></span>Tags</th><td><span class="selected-value select-value-color-gray">Content Design</span><span class="selected-value select-value-color-red">Leadership</span><span class="selected-value select-value-color-blue">Management</span><span class="selected-value select-value-color-yellow">Product Strategy</span><span class="selected-value select-value-color-purple">Strategy</span><span class="selected-value select-value-color-orange">UX Design</span></td></tr><tr class="property-row property-row-text"><th><span class="icon property-icon"><img src="https://www.notion.so/icons/description_gray.svg" style="width:14px;height:14px;display:block"/></span>Tldr:</th><td>The <strong>Privacy Policy</strong> global update shipped to the huge win of a neutral/positive  response. It was transformed by lowering the reading level to 9th grade with 5th/6th highlights section, increased privacy information, and improved visual interaction, increasing accessibility<br/><strong>Privacy Center</strong> was also well received, especially by the United Nations during the Ukraine war, as well as increased goal metrics around visitation for people seeking to understand and control their privacy, and search ranking.</td></tr></tbody></table></header><div class="page-body"><div style="display:contents" dir="auto"><h3 id="b5990b90-7447-41b7-99d6-927fd5036191" class=""><span style="border-bottom:0.05em solid">Background</span></h3></div><div style="display:contents" dir="auto"><p id="13d0e050-d076-400b-89b6-a4274749cd59" class="">After the Cambridge Analytica scandal, and under massive global scrutiny, Meta began to invest billions in improving Privacy across platforms by growing the teams and dramatically improving the systems, technology and commitment to protecting users’ privacy.</p></div><div style="display:contents" dir="auto"><p id="bdf1ec83-19b6-4dc7-978a-eb13ad3f4eeb" class="">
+</p></div><div style="display:contents" dir="auto"><p id="9d0fc75e-3c27-4508-b050-9577d39013f0" class="">
+</p></div><div style="display:contents" dir="ltr"><figure id="4d76f8e7-5692-4a14-9bcc-5220adc10ede" class="image"><a href="Meta%20case%20study%20Changing%20the%20experience%20of%20privacy/Screenshot_2024-07-18_at_1.11.19_PM.png"><img style="width:720px" src="Meta%20case%20study%20Changing%20the%20experience%20of%20privacy/Screenshot_2024-07-18_at_1.11.19_PM.png"/></a></figure></div><div style="display:contents" dir="auto"><h3 id="1e6d48fe-0ca0-4bfd-bbdf-53a9ec0b35b2" class=""><span style="border-bottom:0.05em solid">Challenge</span></h3></div><div style="display:contents" dir="auto"><p id="176bebdf-10ff-4f92-8668-639f4df6a15b" class="">Show the world, our users, and regulators we took privacy seriously and were meaningfully working to address numerous issues. The Privacy Consumer Experience team was the only product team building consumer products that addressed privacy issues.</p></div><div style="display:contents" dir="auto"><p id="4a412522-81cf-41fa-bc4c-db978b7bcfbe" class="">Org objectives (specific numbers withheld for confidentiality):</p></div><div style="display:contents" dir="auto"><ul id="d9d59e61-bf84-4ee0-97ad-4e6bd603bb5e" class="bulleted-list"><li style="list-style-type:disc">Increase sentiment </li></ul></div><div style="display:contents" dir="auto"><ul id="30a537d9-e712-42a3-bca5-2fd7744dd710" class="bulleted-list"><li style="list-style-type:disc">Risk reduction in billions </li></ul></div><div style="display:contents" dir="auto"><ul id="2f1d4b64-5762-4714-a4f6-21df169afb4c" class="bulleted-list"><li style="list-style-type:disc">Increase positive privacy perception rates </li></ul></div><div style="display:contents" dir="auto"><ul id="cfb5a7ac-2cda-42dc-98b8-80b9ff56c02d" class="bulleted-list"><li style="list-style-type:disc">Adoption of privacy controls</li></ul></div><div style="display:contents" dir="auto"><h3 id="1f84edfa-4857-4c93-8c55-901c6f6ca647" class=""><span style="border-bottom:0.05em solid">Goals</span></h3></div><div style="display:contents" dir="auto"><p id="8ac6a6ef-bce7-4bec-8203-aac9410295ac" class="">Update the Privacy policy and reduce the reading level from college level to 8th grade so people could understand it more easily. </p></div><div style="display:contents" dir="auto"><p id="1e3f0758-74dc-4468-88b0-83d7ba09b4de" class="">Offer improved privacy education and control, (which came to life as a platform Privacy Center to solve privacy problems quickly by offering education and control in context of the problems, where the policy lived).</p></div><div style="display:contents" dir="auto"><p id="9ac1b7ea-441e-4cc0-9f5b-c08f203a4259" class="">Prove to regulators that we were addressing concerns. </p></div><div style="display:contents" dir="auto"><p id="d34b8328-c4af-4bb4-a396-07acc5ff7979" class="">
+</p></div><div style="display:contents" dir="auto"><p id="5100dac6-9841-49b6-aa16-91e192b9a557" class="">The old version of the Privacy Policy.</p></div><div style="display:contents" dir="ltr"><figure id="c87293e6-2fde-46bb-9260-c3e4c98f8c45" class="image"><a href="Meta%20case%20study%20Changing%20the%20experience%20of%20privacy/Screenshot_2024-05-30_at_6.12.36_PM.png"><img style="width:768px" src="Meta%20case%20study%20Changing%20the%20experience%20of%20privacy/Screenshot_2024-05-30_at_6.12.36_PM.png"/></a></figure></div><div style="display:contents" dir="auto"><h3 id="f92e3340-d06e-4419-8219-f4fed58b3a69" class=""><span style="border-bottom:0.05em solid">Research insights</span></h3></div><div style="display:contents" dir="auto"><p id="7c27d57d-cc9c-4b93-85f4-6242b8cbb3ae" class="">We were working on people problems, while also navigating the intense pressure that was coming from regulators around the world.</p></div><div style="display:contents" dir="auto"><ul id="05decaf8-94d1-4627-b555-a2c2d024c925" class="bulleted-list"><li style="list-style-type:disc">8 expectations of the external privacy community overlapping with people problems</li></ul></div><div style="display:contents" dir="auto"><ul id="315f3496-7842-4bba-bea0-8acb7fd4c01c" class="bulleted-list"><li style="list-style-type:disc">The policy was super dense and very heavy with legal terminology</li></ul></div><div style="display:contents" dir="auto"><ul id="149d0f07-b5e7-4ede-95d8-34975aac6465" class="bulleted-list"><li style="list-style-type:disc">People were looking for info about specific topics when then needed it</li></ul></div><div style="display:contents" dir="auto"><ul id="60c758cb-d316-4624-831c-02fb92663229" class="bulleted-list"><li style="list-style-type:disc">Policy wasn’t searchable</li></ul></div><div style="display:contents" dir="auto"><ul id="83e1ffee-7599-4953-8ef5-cc2718810324" class="bulleted-list"><li style="list-style-type:disc">Feedback was also coming directly from the press, media, board and Wall Street</li></ul></div><div style="display:contents" dir="ltr"><figure id="cb49b1a5-cc09-49f1-878b-21b366f8f65d" class="image"><a href="Meta%20case%20study%20Changing%20the%20experience%20of%20privacy/7_People_problems_.webp"><img style="width:708px" src="Meta%20case%20study%20Changing%20the%20experience%20of%20privacy/7_People_problems_.webp"/></a></figure></div><div style="display:contents" dir="auto"><h3 id="3e7847ef-6705-4a8a-9f62-d582571d3618" class=""><span style="border-bottom:0.05em solid">Approach + Design</span></h3></div><div style="display:contents" dir="auto"><p id="9851a8fb-44df-4e68-905a-2677528cdbb0" class="">The updated Privacy Policy included video, added to make topics more accessible, and to offer content in a different format. Highlight sections were written at reading score of 5th/6th-grade, even lower than the 9th-grade level of the rest of the policy. There were ~100 stakeholders that required alignment and agreement to ship the Policy, including a notification of the update that in  in ~55 languages.</p></div><div style="display:contents" dir="ltr"><figure id="01f39610-ef9f-42b1-9c62-5da2852d8b68" class="image"><a href="Meta%20case%20study%20Changing%20the%20experience%20of%20privacy/Privacy_Policy_video_pic.png"><img style="width:720px" src="Meta%20case%20study%20Changing%20the%20experience%20of%20privacy/Privacy_Policy_video_pic.png"/></a></figure></div><div style="display:contents" dir="auto"><ul id="0a87a32c-b403-4036-b09b-7ada17158a09" class="toggle"><li><details open=""><summary>Policy with highlights accordion open</summary><div style="display:contents" dir="ltr"><figure id="2b932689-240f-4097-8d62-1c1423182ca4" class="image"><a href="Meta%20case%20study%20Changing%20the%20experience%20of%20privacy/Screenshot_2024-05-30_at_8.07.50_PM.png"><img style="width:720px" src="Meta%20case%20study%20Changing%20the%20experience%20of%20privacy/Screenshot_2024-05-30_at_8.07.50_PM.png"/></a></figure></div></details></li></ul></div><div style="display:contents" dir="auto"><p id="f7bec4cf-eebd-4c88-a9c6-9125f21fc404" class=""><strong>Privacy Center</strong></p></div><div style="display:contents" dir="auto"><p id="8f91b605-cea2-454f-b350-f857782fa95c" class="">Based on the research and our need to tell our story in a product-centric way, Privacy Center was a platform that had key privacy topics that linked to privacy controls across platforms. It offered a quicker more lightweight way of offering people privacy information and control than just the policy. It also showed regulators that we were taking people’s concerns and needs seriously.</p></div><div style="display:contents" dir="ltr"><figure id="47b4b55d-23ba-4a92-90b2-c12b14ca3055" class="image"><a href="Meta%20case%20study%20Changing%20the%20experience%20of%20privacy/Privacy_center_at_first_shipping.png"><img style="width:528px" src="Meta%20case%20study%20Changing%20the%20experience%20of%20privacy/Privacy_center_at_first_shipping.png"/></a></figure></div><div style="display:contents" dir="ltr"><figure id="0c14c0af-cdd4-43b6-a7da-e1ab8f53034a" class="image"><a href="Meta%20case%20study%20Changing%20the%20experience%20of%20privacy/Screenshot_2024-04-15_at_10.18.25_PM.png"><img style="width:528px" src="Meta%20case%20study%20Changing%20the%20experience%20of%20privacy/Screenshot_2024-04-15_at_10.18.25_PM.png"/></a></figure></div><div style="display:contents" dir="auto"><ul id="986032ed-7f17-46c5-b25a-4b7cccf7f1c9" class="toggle"><li><details open=""><summary>Visualizing Location Privacy to make it easier to understand</summary><div style="display:contents" dir="ltr"><figure id="52dadbf0-ff21-4f4a-9dbf-6d1a533758c5" class="image"><a href="Meta%20case%20study%20Changing%20the%20experience%20of%20privacy/Screenshot_2024-04-17_at_8.27.58_PM.png"><img style="width:768px" src="Meta%20case%20study%20Changing%20the%20experience%20of%20privacy/Screenshot_2024-04-17_at_8.27.58_PM.png"/></a></figure></div></details></li></ul></div><div style="display:contents" dir="auto"><p id="9bf369a1-cf48-4a9b-8d1d-f020cc9b88c6" class="">Privacy Center rapidly evolved, based on work from the Privacy Foundation Toolbox. High-traffic topics were eventually put in a horizontal carousel.</p></div><div style="display:contents" dir="ltr"><figure id="dfc22448-cab3-4f5e-9f4a-1fcbda7d518c" class="image"><a href="Meta%20case%20study%20Changing%20the%20experience%20of%20privacy/Current_Privacy_Center_web.png"><img style="width:720px" src="Meta%20case%20study%20Changing%20the%20experience%20of%20privacy/Current_Privacy_Center_web.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="a5a2d869-bc69-43d6-8d47-87222665eb9f" class="">To enhance privacy controls, links to Account Center (where Privacy settings are housed) were added. This solved some of the issues we had originally around embedding controls across platforms. Illustrations and a light color palette warm up the visuals.</p></div><div style="display:contents" dir="auto"><div id="60bc7a4b-f5ab-45b1-96e3-ad618e32bc60" class="column-list"><div style="display:contents" dir="auto"><div id="78d67e15-3961-44da-82f2-7a4d438d5c37" style="width:50.00000000000002%" class="column"><div style="display:contents" dir="ltr"><figure id="5cbeda66-fb85-4c4c-ad2c-d9852967cc6a" class="image"><a href="Meta%20case%20study%20Changing%20the%20experience%20of%20privacy/Screenshot_2024-07-17_at_5.40.03_PM.jpeg"><img style="width:336px" src="Meta%20case%20study%20Changing%20the%20experience%20of%20privacy/Screenshot_2024-07-17_at_5.40.03_PM.jpeg"/></a></figure></div></div></div><div style="display:contents" dir="auto"><div id="614042a6-ae46-4068-972a-915ae1af96ed" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="35be5015-e333-4fbf-9995-06769aae4a67" class="image" style="text-align:right"><a href="Meta%20case%20study%20Changing%20the%20experience%20of%20privacy/Screenshot_2024-07-17_at_5.43.10_PM_2.jpeg"><img style="width:384px" src="Meta%20case%20study%20Changing%20the%20experience%20of%20privacy/Screenshot_2024-07-17_at_5.43.10_PM_2.jpeg"/></a></figure></div></div></div></div></div><div style="display:contents" dir="auto"><hr id="cbaa13e9-0662-4744-8825-9944c933af4f"/></div><div style="display:contents" dir="auto"><h3 id="63f2aab0-b314-4094-9261-22eeffe2e77f" class=""><span style="border-bottom:0.05em solid">Outcomes</span></h3></div><div style="display:contents" dir="auto"><ul id="b7edf933-a7f3-46aa-b452-2f553712784f" class="bulleted-list"><li style="list-style-type:disc">Privacy Policy was received with neutral to positive reception, a massive victory given where we started. </li></ul></div><div style="display:contents" dir="auto"><ul id="8584eb45-d7a4-413b-a34d-7a6b609634bc" class="bulleted-list"><li style="list-style-type:disc">Privacy Center: The United Nations praised the work we did with safety during the Ukraine war</li></ul></div><div style="display:contents" dir="auto"><ul id="50e632df-de70-4d03-b506-204fc31115d6" class="toggle"><li><details open=""><summary>Wartime Privacy issues</summary><div style="display:contents" dir="auto"><p id="d456de48-d1ff-479e-bdcc-be2566aa97bc" class="">During the Ukraine war, the team quickly spun up a privacy solution—Lock Profile—help to protect people in the middle of transition and on the run, giving them the ability to lock their profile in one step. The United Nations praised this work.</p></div><div style="display:contents" dir="auto"><p id="feed6986-c300-42ec-88e5-964456b212c3" class="">(Facebook also removed the ability to view and search the friends list of Facebook accounts to prevent people from being targeted.)</p></div><div style="display:contents" dir="ltr"><figure id="0fb10145-f7ec-4e50-b019-fc16b77a0068" class="image"><a href="Meta%20case%20study%20Changing%20the%20experience%20of%20privacy/Pic_of_profile_locked.png"><img style="width:1096px" src="Meta%20case%20study%20Changing%20the%20experience%20of%20privacy/Pic_of_profile_locked.png"/></a></figure></div></details></li></ul></div><div style="display:contents" dir="auto"><ul id="63abea16-1616-475e-b5c2-949121a33f6b" class="bulleted-list"><li style="list-style-type:disc">Privacy Center ranked #1 on Google search </li></ul></div><div style="display:contents" dir="auto"><ul id="a7af1143-0940-4dfe-b803-21b35dad6dd6" class="bulleted-list"><li style="list-style-type:disc">Increased DAUs in Privacy Center</li></ul></div><div style="display:contents" dir="auto"><ul id="b5bd00ce-15dc-47c7-a58f-fbc22b9f4e11" class="bulleted-list"><li style="list-style-type:disc"><a href="https://www.notion.so/Meta-Privacy-Consumer-Experience-25513147c80a4ed795613e1181cb7f33?pvs=21">Privacy Foundation Toolbox </a>continued to provide strategy around Privacy controls.</li></ul></div><div style="display:contents" dir="ltr"><figure id="53718d65-e5c2-4970-9186-91b8e2847158" class="image"><a href="Meta%20case%20study%20Changing%20the%20experience%20of%20privacy/Screenshot_2024-07-23_at_4.46.36_PM.png"><img style="width:480px" src="Meta%20case%20study%20Changing%20the%20experience%20of%20privacy/Screenshot_2024-07-23_at_4.46.36_PM.png"/></a></figure></div><div style="display:contents" dir="auto"><h3 id="7d127c9b-0546-4694-a271-aaf625601a09" class=""><span style="border-bottom:0.05em solid">Lessons</span></h3></div><div style="display:contents" dir="auto"><ul id="80855eac-e0fb-4f54-99ba-4b779354d787" class="toggle"><li><details open=""><summary>Yup</summary><div style="display:contents" dir="auto"><ol type="1" id="86e1e7f0-7ab1-4bab-aaa0-537d14c5d578" class="numbered-list" start="1"><li>Documentation of privacy decisions was essential for keeping track of the reasons to many complicated questions. Improving this from the start would have been helpful.</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="2c2d8023-b2ee-4c3e-a832-8756e2746543" class="numbered-list" start="2"><li>Commitments: the connection between what we said, and the implementation by engineering was key to compliance. This too, could have used better, earlier (searchable) documentation as technical solutions were in process. We made a template as a stop gap to track decision and support the teams. As content designers, we also wanted a path <em>starting from what we wanted to say </em>to product solutions to engineering. This was also in process.</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="347237ef-ce03-47de-817f-1c57455b3076" class="numbered-list" start="3"><li>Making Privacy Center, self-serve, was an solution that took a while to get to, but eliminated issues around conflicting team priorities and complex RACI issues.</li></ol></div></details></li></ul></div><div style="display:contents" dir="auto"><h3 id="65fcf068-e032-4e30-a72a-276e3023f397" class=""><span style="border-bottom:0.05em solid">Leadership</span></h3></div><div style="display:contents" dir="auto"><p id="526ffa06-420e-4131-8fdb-d2aa5209b764" class="">Role: My team supported a wide variety of privacy and data practices, web and mobile, across platforms and many products (e.g. Privacy Policy; Privacy Center; Off-Meta activities) and addressed regulatory issues like GDPR and DMA, and developed the Center of Excellence for Privacy Content Design.</p></div><div style="display:contents" dir="auto"><ul id="34198c8a-265f-40d1-ad85-6602da19b4dc" class="toggle"><li><details open=""><summary>For a deeper dive</summary><div style="display:contents" dir="auto"><ol type="1" id="ea9d93c9-e5cc-4503-ae24-0092bd53d0cb" class="numbered-list" start="1"><li><a href="https://www.notion.so/Meta-Privacy-Consumer-Experience-25513147c80a4ed795613e1181cb7f33?pvs=21">Mission/Vision</a> that led the org for the Consumer Privacy Experience.</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="4b1e9485-0656-4a4c-af6c-aa14c3193f9a" class="numbered-list" start="2"><li>Privacy Controls Foundation Toolbox which established the why what how when for building topics in Privacy Center and beyond, a cross-functional effort.</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="a2079c48-a521-40f8-b236-bdf3cedc401d" class="numbered-list" start="3"><li>The content design team Center of Excellence developed and grew from Privacy Quality workshops (which was ongoing), numerous sessions each day, offering cross-functional support to the company, conducting specialized research around effective privacy language, and building guidance directly into the product design system.</li></ol></div></details></li></ul></div><div style="display:contents" dir="auto"><hr id="c8f6e83c-0687-4e7d-a1ad-b747183da68a"/></div><div style="display:contents" dir="auto"><p id="0b39fc3b-4193-43b4-8e39-2574c360c170" class="">
+</p></div></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>

@@ -1,0 +1,721 @@
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=utf-8"/><title>Twitter case study: Onboarding that made a difference</title><style>
+/* cspell:disable-file */
+/* webkit printing magic: print all background colors */
+html {
+	-webkit-print-color-adjust: exact;
+}
+* {
+	box-sizing: border-box;
+	-webkit-print-color-adjust: exact;
+}
+
+html,
+body {
+	margin: 0;
+	padding: 0;
+}
+@media only screen {
+	body {
+		margin: 2em auto;
+		max-width: 900px;
+		color: rgb(55, 53, 47);
+	}
+}
+
+body {
+	line-height: 1.5;
+	white-space: pre-wrap;
+}
+
+a,
+a.visited {
+	color: inherit;
+	text-decoration: underline;
+}
+
+.pdf-relative-link-path {
+	font-size: 80%;
+	color: #444;
+}
+
+h1,
+h2,
+h3 {
+	letter-spacing: -0.01em;
+	line-height: 1.2;
+	font-weight: 600;
+	margin-bottom: 0;
+}
+
+/* Override strong tags inside headings to maintain consistent weight */
+h1 strong,
+h2 strong,
+h3 strong {
+	font-weight: 600;
+}
+
+.page-title {
+	font-size: 2.5rem;
+	font-weight: 700;
+	margin-top: 0;
+	margin-bottom: 0.75em;
+}
+
+h1 {
+	font-size: 1.875rem;
+	margin-top: 1.875rem;
+}
+
+h2 {
+	font-size: 1.5rem;
+	margin-top: 1.5rem;
+}
+
+h3 {
+	font-size: 1.25rem;
+	margin-top: 1.25rem;
+}
+
+.source {
+	border: 1px solid #ddd;
+	border-radius: 3px;
+	padding: 1.5em;
+	word-break: break-all;
+}
+
+.callout {
+	border-radius: 10px;
+	padding: 1rem;
+}
+
+figure {
+	margin: 1.25em 0;
+	page-break-inside: avoid;
+}
+
+figcaption {
+	opacity: 0.5;
+	font-size: 85%;
+	margin-top: 0.5em;
+}
+
+mark {
+	background-color: transparent;
+}
+
+.indented {
+	padding-left: 1.5em;
+}
+
+hr {
+	background: transparent;
+	display: block;
+	width: 100%;
+	height: 1px;
+	visibility: visible;
+	border: none;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.09);
+}
+
+img {
+	max-width: 100%;
+}
+
+@media only print {
+	img {
+		max-height: 100vh;
+		object-fit: contain;
+	}
+}
+
+@page {
+	margin: 1in;
+}
+
+.collection-content {
+	font-size: 0.875rem;
+}
+
+.collection-content td {
+	white-space: pre-wrap;
+	word-break: break-word;
+}
+
+.column-list {
+	display: flex;
+	justify-content: space-between;
+}
+
+.column {
+	padding: 0 1em;
+}
+
+.column:first-child {
+	padding-left: 0;
+}
+
+.column:last-child {
+	padding-right: 0;
+}
+
+.table_of_contents-item {
+	display: block;
+	font-size: 0.875rem;
+	line-height: 1.3;
+	padding: 0.125rem;
+}
+
+.table_of_contents-indent-1 {
+	margin-left: 1.5rem;
+}
+
+.table_of_contents-indent-2 {
+	margin-left: 3rem;
+}
+
+.table_of_contents-indent-3 {
+	margin-left: 4.5rem;
+}
+
+.table_of_contents-link {
+	text-decoration: none;
+	opacity: 0.7;
+	border-bottom: 1px solid rgba(55, 53, 47, 0.18);
+}
+
+table,
+th,
+td {
+	border: 1px solid rgba(55, 53, 47, 0.09);
+	border-collapse: collapse;
+}
+
+table {
+	border-left: none;
+	border-right: none;
+}
+
+th,
+td {
+	font-weight: normal;
+	padding: 0.25em 0.5em;
+	line-height: 1.5;
+	min-height: 1.5em;
+	text-align: left;
+}
+
+th {
+	color: rgba(55, 53, 47, 0.6);
+}
+
+ol,
+ul {
+	margin: 0;
+	margin-block-start: 0.6em;
+	margin-block-end: 0.6em;
+}
+
+li > ol:first-child,
+li > ul:first-child {
+	margin-block-start: 0.6em;
+}
+
+ul > li {
+	list-style: disc;
+}
+
+ul.to-do-list {
+	padding-inline-start: 0;
+}
+
+ul.to-do-list > li {
+	list-style: none;
+}
+
+.to-do-children-checked {
+	text-decoration: line-through;
+	opacity: 0.375;
+}
+
+ul.toggle > li {
+	list-style: none;
+}
+
+ul {
+	padding-inline-start: 1.7em;
+}
+
+ul > li {
+	padding-left: 0.1em;
+}
+
+ol {
+	padding-inline-start: 1.6em;
+}
+
+ol > li {
+	padding-left: 0.2em;
+}
+
+.mono ol {
+	padding-inline-start: 2em;
+}
+
+.mono ol > li {
+	text-indent: -0.4em;
+}
+
+.toggle {
+	padding-inline-start: 0em;
+	list-style-type: none;
+}
+
+/* Indent toggle children */
+.toggle > li > details {
+	padding-left: 1.7em;
+}
+
+.toggle > li > details > summary {
+	margin-left: -1.1em;
+}
+
+.selected-value {
+	display: inline-block;
+	padding: 0 0.5em;
+	background: rgba(206, 205, 202, 0.5);
+	border-radius: 3px;
+	margin-right: 0.5em;
+	margin-top: 0.3em;
+	margin-bottom: 0.3em;
+	white-space: nowrap;
+}
+
+.collection-title {
+	display: inline-block;
+	margin-right: 1em;
+}
+
+.page-description {
+	margin-bottom: 2em;
+}
+
+.simple-table {
+	margin-top: 1em;
+	font-size: 0.875rem;
+	empty-cells: show;
+}
+.simple-table td {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table th {
+	height: 29px;
+	min-width: 120px;
+}
+
+.simple-table-header-color {
+	background: rgb(247, 246, 243);
+	color: black;
+}
+.simple-table-header {
+	font-weight: 500;
+}
+
+time {
+	opacity: 0.5;
+}
+
+.icon {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	max-width: 1.2em;
+	max-height: 1.2em;
+	text-decoration: none;
+	vertical-align: text-bottom;
+	margin-right: 0.5em;
+}
+
+img.icon {
+	border-radius: 3px;
+}
+
+.callout img.notion-static-icon {
+	width: 1em;
+	height: 1em;
+}
+
+.callout p {
+	margin: 0;
+}
+
+.callout h1,
+.callout h2,
+.callout h3 {
+	margin: 0 0 0.6rem;
+}
+
+.user-icon {
+	width: 1.5em;
+	height: 1.5em;
+	border-radius: 100%;
+	margin-right: 0.5rem;
+}
+
+.user-icon-inner {
+	font-size: 0.8em;
+}
+
+.text-icon {
+	border: 1px solid #000;
+	text-align: center;
+}
+
+.page-cover-image {
+	display: block;
+	object-fit: cover;
+	width: 100%;
+	max-height: 30vh;
+}
+
+.page-header-icon {
+	font-size: 3rem;
+	margin-bottom: 1rem;
+}
+
+.page-header-icon-with-cover {
+	margin-top: -0.72em;
+	margin-left: 0.07em;
+}
+
+.page-header-icon img {
+	border-radius: 3px;
+}
+
+.link-to-page {
+	margin: 1em 0;
+	padding: 0;
+	border: none;
+	font-weight: 500;
+}
+
+p > .user {
+	opacity: 0.5;
+}
+
+td > .user,
+td > time {
+	white-space: nowrap;
+}
+
+input[type="checkbox"] {
+	transform: scale(1.5);
+	margin-right: 0.6em;
+	vertical-align: middle;
+}
+
+p {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+
+.image {
+	border: none;
+	margin: 1.5em 0;
+	padding: 0;
+	border-radius: 0;
+	text-align: center;
+}
+
+.code,
+code {
+	background: rgba(135, 131, 120, 0.15);
+	border-radius: 3px;
+	padding: 0.2em 0.4em;
+	border-radius: 3px;
+	font-size: 85%;
+	tab-size: 2;
+}
+
+code {
+	color: #eb5757;
+}
+
+.code {
+	padding: 1.5em 1em;
+}
+
+.code-wrap {
+	white-space: pre-wrap;
+	word-break: break-all;
+}
+
+.code > code {
+	background: none;
+	padding: 0;
+	font-size: 100%;
+	color: inherit;
+}
+
+blockquote {
+	font-size: 1em;
+	margin: 1em 0;
+	padding-left: 1em;
+	border-left: 3px solid rgb(55, 53, 47);
+}
+
+blockquote.quote-large {
+	font-size: 1.25em;
+}
+
+.bookmark {
+	text-decoration: none;
+	max-height: 8em;
+	padding: 0;
+	display: flex;
+	width: 100%;
+	align-items: stretch;
+}
+
+.bookmark-title {
+	font-size: 0.85em;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	height: 1.75em;
+	white-space: nowrap;
+}
+
+.bookmark-text {
+	display: flex;
+	flex-direction: column;
+}
+
+.bookmark-info {
+	flex: 4 1 180px;
+	padding: 12px 14px 14px;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+}
+
+.bookmark-image {
+	width: 33%;
+	flex: 1 1 180px;
+	display: block;
+	position: relative;
+	object-fit: cover;
+	border-radius: 1px;
+}
+
+.bookmark-description {
+	color: rgba(55, 53, 47, 0.6);
+	font-size: 0.75em;
+	overflow: hidden;
+	max-height: 4.5em;
+	word-break: break-word;
+}
+
+.bookmark-href {
+	font-size: 0.75em;
+	margin-top: 0.25em;
+}
+
+.sans { font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol"; }
+.code { font-family: "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace; }
+.serif { font-family: Lyon-Text, Georgia, ui-serif, serif; }
+.mono { font-family: iawriter-mono, Nitti, Menlo, Courier, monospace; }
+.pdf .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK JP'; }
+.pdf:lang(zh-CN) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK SC'; }
+.pdf:lang(zh-TW) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK TC'; }
+.pdf:lang(ko-KR) .sans { font-family: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI Variable Display", "Segoe UI", Helvetica, "Apple Color Emoji", "Noto Sans Arabic", "Noto Sans Hebrew", Arial, sans-serif, "Segoe UI Emoji", "Segoe UI Symbol", 'Twemoji', 'Noto Color Emoji', 'Noto Sans CJK KR'; }
+.pdf .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .code { font-family: Source Code Pro, "SFMono-Regular", Menlo, Consolas, "PT Mono", "Liberation Mono", Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.pdf .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK JP'; }
+.pdf:lang(zh-CN) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK SC'; }
+.pdf:lang(zh-TW) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK TC'; }
+.pdf:lang(ko-KR) .serif { font-family: PT Serif, Lyon-Text, Georgia, ui-serif, serif, 'Twemoji', 'Noto Color Emoji', 'Noto Serif CJK KR'; }
+.pdf .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK JP'; }
+.pdf:lang(zh-CN) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK SC'; }
+.pdf:lang(zh-TW) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK TC'; }
+.pdf:lang(ko-KR) .mono { font-family: PT Mono, iawriter-mono, Nitti, Menlo, Courier, monospace, 'Twemoji', 'Noto Color Emoji', 'Noto Sans Mono CJK KR'; }
+.highlight-default {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.highlight-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.highlight-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.highlight-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.highlight-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.highlight-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.highlight-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.highlight-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.highlight-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.highlight-default_background {
+	color: rgba(44, 44, 43, 1);
+}
+.highlight-gray_background {
+	background: rgba(42, 28, 0, 0.07);
+}
+.highlight-brown_background {
+	background: rgba(139, 46, 0, 0.086);
+}
+.highlight-orange_background {
+	background: rgba(224, 101, 1, 0.129);
+}
+.highlight-yellow_background {
+	background: rgba(211, 168, 0, 0.137);
+}
+.highlight-teal_background {
+	background: rgba(0, 100, 45, 0.09);
+}
+.highlight-blue_background {
+	background: rgba(0, 124, 215, 0.094);
+}
+.highlight-purple_background {
+	background: rgba(102, 0, 178, 0.078);
+}
+.highlight-pink_background {
+	background: rgba(197, 0, 93, 0.086);
+}
+.highlight-red_background {
+	background: rgba(223, 22, 0, 0.094);
+}
+.block-color-default {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray {
+	color: rgba(125, 122, 117, 1);
+	fill: rgba(125, 122, 117, 1);
+}
+.block-color-brown {
+	color: rgba(159, 118, 90, 1);
+	fill: rgba(159, 118, 90, 1);
+}
+.block-color-orange {
+	color: rgba(210, 123, 45, 1);
+	fill: rgba(210, 123, 45, 1);
+}
+.block-color-yellow {
+	color: rgba(203, 148, 52, 1);
+	fill: rgba(203, 148, 52, 1);
+}
+.block-color-teal {
+	color: rgba(80, 148, 110, 1);
+	fill: rgba(80, 148, 110, 1);
+}
+.block-color-blue {
+	color: rgba(56, 125, 201, 1);
+	fill: rgba(56, 125, 201, 1);
+}
+.block-color-purple {
+	color: rgba(154, 107, 180, 1);
+	fill: rgba(154, 107, 180, 1);
+}
+.block-color-pink {
+	color: rgba(193, 76, 138, 1);
+	fill: rgba(193, 76, 138, 1);
+}
+.block-color-red {
+	color: rgba(207, 81, 72, 1);
+	fill: rgba(207, 81, 72, 1);
+}
+.block-color-default_background {
+	color: inherit;
+	fill: inherit;
+}
+.block-color-gray_background {
+	background: rgba(240, 239, 237, 1);
+}
+.block-color-brown_background {
+	background: rgba(245, 237, 233, 1);
+}
+.block-color-orange_background {
+	background: rgba(251, 235, 222, 1);
+}
+.block-color-yellow_background {
+	background: rgba(249, 243, 220, 1);
+}
+.block-color-teal_background {
+	background: rgba(232, 241, 236, 1);
+}
+.block-color-blue_background {
+	background: rgba(229, 242, 252, 1);
+}
+.block-color-purple_background {
+	background: rgba(243, 235, 249, 1);
+}
+.block-color-pink_background {
+	background: rgba(250, 233, 241, 1);
+}
+.block-color-red_background {
+	background: rgba(252, 233, 231, 1);
+}
+.select-value-color-default { background-color: rgba(42, 28, 0, 0.07); }
+.select-value-color-gray { background-color: rgba(28, 19, 1, 0.11); }
+.select-value-color-brown { background-color: rgba(127, 51, 0, 0.156); }
+.select-value-color-orange { background-color: rgba(196, 88, 0, 0.203); }
+.select-value-color-yellow { background-color: rgba(209, 156, 0, 0.282); }
+.select-value-color-green { background-color: rgba(0, 96, 38, 0.156); }
+.select-value-color-blue { background-color: rgba(0, 118, 217, 0.203); }
+.select-value-color-purple { background-color: rgba(92, 0, 163, 0.141); }
+.select-value-color-pink { background-color: rgba(183, 0, 78, 0.152); }
+.select-value-color-red { background-color: rgba(206, 24, 0, 0.164); }
+
+.checkbox {
+	display: inline-flex;
+	vertical-align: text-bottom;
+	width: 16;
+	height: 16;
+	background-size: 16px;
+	margin-left: 2px;
+	margin-right: 5px;
+}
+
+.checkbox-on {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20width%3D%2216%22%20height%3D%2216%22%20fill%3D%22%2358A9D7%22%2F%3E%0A%3Cpath%20d%3D%22M6.71429%2012.2852L14%204.9995L12.7143%203.71436L6.71429%209.71378L3.28571%206.2831L2%207.57092L6.71429%2012.2852Z%22%20fill%3D%22white%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+
+.checkbox-off {
+	background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg%20width%3D%2216%22%20height%3D%2216%22%20viewBox%3D%220%200%2016%2016%22%20fill%3D%22none%22%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%3E%0A%3Crect%20x%3D%220.75%22%20y%3D%220.75%22%20width%3D%2214.5%22%20height%3D%2214.5%22%20fill%3D%22white%22%20stroke%3D%22%2336352F%22%20stroke-width%3D%221.5%22%2F%3E%0A%3C%2Fsvg%3E");
+}
+	
+</style></head><body><article id="d835083f-4788-43f4-81df-f5b6098be829" class="page serif"><header><img class="page-cover-image" src="Twitter%20case%20study%20Onboarding%20that%20made%20a%20differen/Twitter_tweets_out_of_the_box.jpeg" style="object-position:center 80.63%"/><div class="page-header-icon page-header-icon-with-cover"><img class="icon" src="Twitter%20case%20study%20Onboarding%20that%20made%20a%20differen/twitter_logo_1.jpeg"/></div><h1 class="page-title" dir="auto">Twitter case study: Onboarding that made a difference</h1><p class="page-description" dir="auto"></p><table class="properties"><tbody><tr class="property-row property-row-text"><th><span class="icon property-icon"><img src="https://www.notion.so/icons/description_gray.svg" style="width:14px;height:14px;display:block"/></span>My role</th><td>I was the first UX writer and Content Designer hired by Twitter&#x27;s Design team and quickly became known as the &#x27;voice of Twitter.&#x27; I played a key role in elevating brand awareness to 98%, served on the growth leadership team, and co-founded the product marketing team.</td></tr><tr class="property-row property-row-multi_select"><th><span class="icon property-icon"><img src="https://www.notion.so/icons/list_gray.svg" style="width:14px;height:14px;display:block"/></span>Tags</th><td><span class="selected-value select-value-color-purple">Brand</span><span class="selected-value select-value-color-brown">Business goals</span><span class="selected-value select-value-color-gray">Content Design</span><span class="selected-value select-value-color-orange">UX Design</span><span class="selected-value select-value-color-pink">first content designer!</span></td></tr><tr class="property-row property-row-text"><th><span class="icon property-icon"><img src="https://www.notion.so/icons/description_gray.svg" style="width:14px;height:14px;display:block"/></span>Tldr:</th><td>The new &#x27;Instant timeline&#x27; onboarding flow exceeded expectations, achieved its metrics, and was well-received by users, critics, and Wall Street, as evidenced by a 7% increase in Twitter&#x27;s stock.</td></tr></tbody></table></header><div class="page-body"><div style="display:contents" dir="auto"><h3 id="ea97529a-c906-4f8c-bfd3-55620c683c02" class=""><span style="border-bottom:0.05em solid">Background</span></h3></div><div style="display:contents" dir="auto"><p id="bcd1bf58-0f32-4d22-a05d-91c0f50186f9" class="">In 2011, Twitter was a hot new app and growing fast. Approximately 1.5 million users had joined over the last two years. The company was also focused on serving its 500 million monthly unique logged out visitors and maximizing the 185 billion impressions per quarter on syndicated tweets shown in news articles and elsewhere. In 2012, Twitter broke new records for number of users (140 million) and number of tweets per day (340 million). </p></div><div style="display:contents" dir="auto"><p id="9c01ce4e-fad8-42a8-b54a-2ab0fd83ddc5" class="">The company had recently started serving ads to people based on their timelines and was trying  to become profitable. They had also launched “tailored tweets” as a way for brands to reach customers and grow revenue.</p></div><div style="display:contents" dir="auto"><div><div style="display:contents" dir="ltr"><figure id="ec80596d-254d-4825-bc49-c1ec7d558eff" class="image"><a href="Twitter%20case%20study%20Onboarding%20that%20made%20a%20differen/99e83064-5e10-459b-9b5f-06dbf9170d13.png"><img style="width:708px" src="Twitter%20case%20study%20Onboarding%20that%20made%20a%20differen/99e83064-5e10-459b-9b5f-06dbf9170d13.png"/></a></figure></div></div></div><div style="display:contents" dir="auto"><details open=""><summary style="font-weight:600;font-size:1.25em;line-height:1.3;margin:0"><span style="border-bottom:0.05em solid">Challenges</span></summary><div class="indented"><div style="display:contents" dir="auto"><ul id="e7a032cf-34b2-4b21-93ee-bb85e831c6bd" class="bulleted-list"><li style="list-style-type:disc">Churn was a massive issue and once people churned, they didn’t come back. </li></ul></div><div style="display:contents" dir="auto"><ul id="884ce851-ba25-4c4c-8a0a-1e7b04cd7930" class="bulleted-list"><li style="list-style-type:disc">People didn’t really understand why they should use Twitter or what it was.</li></ul></div><div style="display:contents" dir="auto"><ul id="321b69f6-1a9e-4f92-ab85-aea73b4fdcff" class="bulleted-list"><li style="list-style-type:disc">It took too long to curate a good timeline.</li></ul></div><div style="display:contents" dir="auto"><ul id="655fb2a0-2bdd-40ac-ae04-579771396352" class="bulleted-list"><li style="list-style-type:disc">People struggled to find content they liked.</li></ul></div><div style="display:contents" dir="auto"><ul id="e8d0cb78-4cbc-4be2-bc76-2925a0ccfa5b" class="bulleted-list"><li style="list-style-type:disc">All of this negatively impacted advertising.</li></ul></div></div></details></div><div style="display:contents" dir="auto"><h3 id="83877362-0329-4529-80d1-214b1b2b6226" class=""><span style="border-bottom:0.05em solid">Goals</span></h3></div><div style="display:contents" dir="auto"><p id="8f2d87a1-032e-4ab3-b3ba-bef582368d45" class="">The growth team was tasked with re-designing the onboarding flow to get people a great timeline fast, with the specific goals of having more people finish the onboarding flow and of increasing retention. We needed to make “Twitter for everyone.”</p></div><div style="display:contents" dir="auto"><details open=""><summary style="font-weight:600;font-size:1.25em;line-height:1.3;margin:0"><span style="border-bottom:0.05em solid">Research insights</span></summary><div class="indented"><div style="display:contents" dir="auto"><ol type="1" id="9f9a6d20-7633-4d5d-81b5-a9106a574005" class="numbered-list" start="1"><li>People didn’t understand what Twitter was for.</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="5ccad3fa-43da-4d39-aa54-c7986e67cfbc" class="numbered-list" start="2"><li>The app felt cold and unapproachable: too exclusive.</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="5e640b28-8ab9-4fda-896e-fb79614b5996" class="numbered-list" start="3"><li>The current flow landed people with empty or very bad timelines and didn’t bother to curate them.</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="302a5ea6-3d4f-465f-9ed6-5fa2af49726a" class="numbered-list" start="4"><li>When people followed friends or family they were more likely to stick.</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="171187f3-c7ea-4df4-ad82-f7fe99be66c1" class="numbered-list" start="5"><li>People often went directly to famous people’s profiles without logging in.</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="88619eae-d01c-427b-bc9f-45e28313c0be" class="numbered-list" start="6"><li>People dropped off at every screen in the onboarding flow.</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="922b7a9d-1753-4cdb-9545-29c06956b644" class="numbered-list" start="7"><li>What a person had for lunch wasn’t a good tweet.</li></ol></div></div></details></div><div style="display:contents" dir="auto"><h3 id="0d8da6a8-de12-4e0d-9aab-a3d98d1e237c" class=""><span style="border-bottom:0.05em solid">Product strategy</span></h3></div><div style="display:contents" dir="auto"><p id="f9f3c30d-81cc-4343-9083-e12050836ca1" class="">Use first party data (choose topics, add contacts) to make an “instant-timeline” because completing onboarding with a great timeline would immediately show the value of the app and make people more likely to stick. This data would allow Twitter to make follow suggestions based on more personal, and hopefully more relevant, information.</p></div><div style="display:contents" dir="ltr"><figure class="block-color-teal_background callout" style="white-space:pre-wrap;display:flex" id="b45af8f6-c349-4a64-a35c-58bf33c8d5e0"><div style="font-size:1.5em"><span class="icon">➡️</span></div><div style="width:100%">Design challenge:  if timelines were <em>too relevant, </em>people might be alarmed</div></figure></div><div style="display:contents" dir="auto"><details open=""><summary style="font-weight:600;font-size:1.25em;line-height:1.3;margin:0"><span style="border-bottom:0.05em solid">(Deeper dive: ideas &amp; inspiration)</span></summary><div class="indented"><div style="display:contents" dir="auto"><p id="f78543bb-80fc-4a04-b17f-977af84e0b41" class="">When I met Doug Bowman (@stop), who was running Twitter Design and ultimately hired me, I pitched him my first big Twitter idea. It was based on what I felt the promise of Twitter was as an early adopter. </p></div><div style="display:contents" dir="ltr"><figure class="block-color-teal_background callout" style="white-space:pre-wrap;display:flex" id="32ddda12-77f7-4874-b76f-b3eb1a7c1ac0"><div style="font-size:1.5em"><span class="icon">💯</span></div><div style="width:100%">One great Tweet can take you anywhere.</div></figure></div><div style="display:contents" dir="auto"><p id="b7e1c80b-ec56-404b-a999-95a0ffc474c3" class="">I still think it’s interesting and relevant to what Twitter does. During my time there, lots of people had ideas about what Twitter was and should be. Over the years we were: </p></div><div style="display:contents" dir="auto"><p id="7538ced5-a221-4e93-895c-70810e189022" class="">“Everything to Everybody, Window to the World, The Global Town Square,” and I had an idea that never got traction about being a citizen of the world.  We did test various value prop ideas that I wrote.</p></div><div style="display:contents" dir="auto"><ul id="e4749594-b254-4f1e-8725-9ed9448047a1" class="toggle"><li><details open=""><summary><strong>Content variants</strong></summary><div style="display:contents" dir="ltr"><figure id="53dd8ed0-7d4d-4cc1-9e05-8d6667ac355a" class="image"><a href="Twitter%20case%20study%20Onboarding%20that%20made%20a%20differen/Results_content_value_prop_performance.png"><img style="width:2124px" src="Twitter%20case%20study%20Onboarding%20that%20made%20a%20differen/Results_content_value_prop_performance.png"/></a></figure></div></details></li></ul></div><div style="display:contents" dir="auto"><p id="ac0f3770-f188-4f36-8237-16cee747e86d" class="">Because I also did early marketing, I designed and wrote copy for some ads that were based on the idea of getting closer to the action and being on the inside, an idea that came from people’s interest in celebrities and the potential to actually make direct connections with icons through the app.</p></div><div style="display:contents" dir="auto"><ul id="56e701fe-881e-4b48-8c15-f3975fe7abd6" class="toggle"><li><details open=""><summary><strong>Twitter marketing</strong></summary><div style="display:contents" dir="ltr"><figure id="6e79f7f7-4738-415a-bc1b-4adb6f26e323" class="image"><a href="Twitter%20case%20study%20Onboarding%20that%20made%20a%20differen/Twitter_Super_Bowl_ad_2.png"><img style="width:600px" src="Twitter%20case%20study%20Onboarding%20that%20made%20a%20differen/Twitter_Super_Bowl_ad_2.png"/></a></figure></div><div style="display:contents" dir="ltr"><figure id="bb654b64-5dc1-4fab-a79d-a166ab6d5acc" class="image"><a href="Twitter%20case%20study%20Onboarding%20that%20made%20a%20differen/Twitter_Super_bowl_ad_1.png"><img style="width:600px" src="Twitter%20case%20study%20Onboarding%20that%20made%20a%20differen/Twitter_Super_bowl_ad_1.png"/></a></figure></div></details></li></ul></div><div style="display:contents" dir="auto"><p id="7df3f967-418a-45d7-a58b-740ba299a11c" class="">The famous Ellen Oscar selfie showed us how excited people were both by getting that insider view of the world, and by pictures in tweets. </p></div><div style="display:contents" dir="auto"><ul id="0ddff138-001b-446b-ad60-18e1de12d55f" class="toggle"><li><details open=""><summary><strong>yes, the Ellen selfie</strong></summary><div style="display:contents" dir="ltr"><figure id="bea67cde-3145-464e-a908-d4722736c1e0" class="image"><a href="Twitter%20case%20study%20Onboarding%20that%20made%20a%20differen/Ellen_Twitter_Selfie.png"><img style="width:1190px" src="Twitter%20case%20study%20Onboarding%20that%20made%20a%20differen/Ellen_Twitter_Selfie.png"/></a></figure></div></details></li></ul></div><div style="display:contents" dir="auto"><p id="d324bb29-3ee6-4eac-995f-cf032e45cabc" class="">That gave me the idea to invert the picture and the copy; take the tweet out of the chrome. It was  controversial at the time since some people felt it didn’t accurately show the product, but I wanted to experiment with how a tweet could make you feel and we knew from research that the chrome didn’t do that well. So we experimented  with the idea of creating a better connection with people.</p></div><div style="display:contents" dir="auto"><p id="d7a3da21-9f2a-48fb-b4b4-02edd2684183" class="">Because I wasn’t too far out of the MFA fiction writing program at Columbia, I was also thinking about the idea of the stories behind every little tweet, and how each one held multitudes. We also knew that people engaged more with tweets when they had images in them.</p></div><div style="display:contents" dir="auto"><ul id="181b88cf-deaf-442e-9ea6-2387627ce24e" class="toggle"><li><details open=""><summary><strong>About page</strong></summary><div style="display:contents" dir="ltr"><figure id="ecadcf43-4918-4dbf-ad41-64abcad2d3a7" class="image"><a href="Twitter%20case%20study%20Onboarding%20that%20made%20a%20differen/Twitter_landing_pics.png"><img style="width:576px" src="Twitter%20case%20study%20Onboarding%20that%20made%20a%20differen/Twitter_landing_pics.png"/></a></figure></div></details></li></ul></div><div style="display:contents" dir="auto"><p id="37bf3750-ce07-42dc-9ecf-044eadf22320" class="">The World Cup was on my mind as well, as we’d seen a lot of interest in the team flags we’d designed so people could add them to their profile. Profiles were also getting a make-over and became a contextual entry point for sign ups. </p></div><div style="display:contents" dir="auto"><p id="230fa212-4eb3-4d4a-b097-a64c4f373072" class="">The team designed a special onboarding flow  just for the World Cup. </p></div><div style="display:contents" dir="auto"><ul id="5687ac55-8d67-4285-87d2-db9c9329e5f7" class="toggle"><li><details open=""><summary><strong>World Cup</strong></summary><div style="display:contents" dir="ltr"><figure id="b7ed7313-5849-44df-8e1e-d1943c45de54" class="image"><a href="Twitter%20case%20study%20Onboarding%20that%20made%20a%20differen/twitter-world-cup-2014.jpg"><img style="width:1280px" src="Twitter%20case%20study%20Onboarding%20that%20made%20a%20differen/twitter-world-cup-2014.jpg"/></a></figure></div></details></li></ul></div><div style="display:contents" dir="auto"><p id="1b1ccd20-d62f-4bc6-8eac-a8a0c8f6faab" class="">Because the real-time updates and scores from the World Cup allowed you to enter into the product, for the occasion, I articulated the key value of the app, still relevant today, a decade later.</p></div><div style="display:contents" dir="ltr"><figure class="block-color-teal_background callout" style="white-space:pre-wrap;display:flex" id="10851f18-9036-43c8-ae4e-4d133b02df8a"><div style="font-size:1.5em"><span class="icon">✅</span></div><div style="width:100%">“What’s happening now” &amp; “What’s happening soon”</div></figure></div></div></details></div><div style="display:contents" dir="auto"><h3 id="36c4e6f4-4570-4831-a00d-c5677d8f9041" class=""><span style="border-bottom:0.05em solid">Design</span></h3></div><div style="display:contents" dir="auto"><p id="d240f34f-bed9-432a-8b5a-d046595c28d9" class="">We knew from the research that people dropped off at every screen on the flow, so we wanted to keep it to as few screens as possible. Research also showed that contacts were a great way to find relevance. We also wanted to help people think about Twitter in terms of interests and topics.</p></div><div style="display:contents" dir="auto"><p id="a21af469-2948-4ba8-88db-11129cfbbd7b" class="">In addition, I wanted to add one extra screen that didn’t actually contribute directly to the “instant timeline,” but I hypothesized it would help address issues of retention in a more human way (warmth, clarity and explanation). My early ideas (see above) allowed me to gain alignment  with the team around testing this extra opening screen.</p></div><div style="display:contents" dir="auto"><p id="30fae0a7-bfa1-41d2-b0c7-e1e205ffd342" class="">
+</p></div><div style="display:contents" dir="ltr"><figure id="d91e04e2-2a35-41c6-ae0d-890314400e34" class="image"><a href="Twitter%20case%20study%20Onboarding%20that%20made%20a%20differen/Screenshot_2014-10-10_12.20.39.png"><img style="width:708px" src="Twitter%20case%20study%20Onboarding%20that%20made%20a%20differen/Screenshot_2014-10-10_12.20.39.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="a9e31978-f406-416c-b32e-c86984ea926d" class="">
+</p></div><div style="display:contents" dir="auto"><p id="e161e983-38ef-4a5b-a6fd-54a1988dd1d8" class="">Key ideas:</p></div><div style="display:contents" dir="auto"><ul id="1dfa93b7-1c4b-4a75-a773-304fb2c8945b" class="bulleted-list"><li style="list-style-type:disc">A welcoming opening line to warm up the app + name personalization.</li></ul></div><div style="display:contents" dir="auto"><ul id="2f0746d0-80ab-4f1a-9392-3b09ade1a3d8" class="bulleted-list"><li style="list-style-type:disc">An explanation of what Twitter was and introducing the idea of giving value to users by having content be customized (and of course this was something we used to talk about ads as well).</li></ul></div><div style="display:contents" dir="ltr"><figure class="block-color-teal_background callout" style="white-space:pre-wrap;display:flex" id="f4340f78-7692-4c5c-bfdb-0a6e8f22bf20"><div style="font-size:1.5em"><span class="icon">➡️</span></div><div style="width:100%">Tailored was a word I chose to describe the value the service gave people. Many years later, at a different company, we tested that word choice, and it still beat out personalized and customized.</div></figure></div><div style="display:contents" dir="auto"><ul id="22ce39b7-91d9-40fe-8157-e6681223e57f" class="bulleted-list"><li style="list-style-type:disc">Tweets out of the box, and placed in a kind of timeline-like structure to imply what the app would look like, while highlighting emotion, excitement and feelings you might get using it. (I was trust that people would be able understand the product once they got there, and that they didn’t need to see actual chrome-perfect Tweets to understand why they would like it.)</li></ul></div><div style="display:contents" dir="auto"><ul id="5ccf98d6-37cd-49d6-a984-90b741e5c9ab" class="bulleted-list"><li style="list-style-type:disc">The button was the most personality a Twitter button had seen.</li></ul></div><div style="display:contents" dir="auto"><p id="21249c9f-2d3c-42d1-805e-8116e31d3c78" class="">The interest picker was pre-checked with “popular accounts.” Popular was a compelling word in research studies.</p></div><div style="display:contents" dir="auto"><p id="42f59e6e-0da3-4e63-b2d8-a491f5572df1" class="">
+</p></div><div style="display:contents" dir="ltr"><figure id="d127ddfd-00d8-4370-9c8b-c40ff3f9776d" class="image"><a href="Twitter%20case%20study%20Onboarding%20that%20made%20a%20differen/Screenshot_2014-10-10_12.20.52.png"><img style="width:2182px" src="Twitter%20case%20study%20Onboarding%20that%20made%20a%20differen/Screenshot_2014-10-10_12.20.52.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="236e4e46-b518-4bfc-b0b2-7f8fd16b2e21" class="">
+</p></div><div style="display:contents" dir="auto"><p id="69790e7c-69d0-44ba-b1bd-76745ff888e5" class="">Following our suggestions was one of the two ways to significantly improve your timeline, which is why we strongly encouraged you to accept all our suggested accounts.</p></div><div style="display:contents" dir="auto"><ul id="e504fc3e-16c1-4702-b0b7-70f97962cba1" class="bulleted-list"><li style="list-style-type:disc">We explicitly stated this in the body copy, even using the rare exclamation point for emphasis.</li></ul></div><div style="display:contents" dir="auto"><ul id="979f71a8-0984-4935-a21f-043a1afc6289" class="bulleted-list"><li style="list-style-type:disc">The button had more text than usual to ensure clarity about what was happening.</li></ul></div><div style="display:contents" dir="auto"><ul id="e98f0af1-71aa-4162-b29a-9b5d5970fc21" class="bulleted-list"><li style="list-style-type:disc">We designed the interface so that the default accounts were pre-checked, although users could uncheck them if desired.</li></ul></div><div style="display:contents" dir="auto"><ul id="c4fd7e5e-2ad7-4715-b0c6-693ac1b039fc" class="bulleted-list"><li style="list-style-type:disc">The concept of &#x27;just for you&#x27; became a bit of a mantra for us, highlighting both the value and the customization working behind the scenes.</li></ul></div><div style="display:contents" dir="auto"><ul id="11e66d4c-0339-4eb3-8759-6950df4c8767" class="bulleted-list"><li style="list-style-type:disc">At that time, &#x27;following&#x27; was defined with hover text to provide clear definitions</li></ul></div><div style="display:contents" dir="auto"><p id="9ecba9f4-b451-4862-b6c8-aeaa2c683d8c" class="">
+</p></div><div style="display:contents" dir="ltr"><figure id="ed38e8e6-f903-4e67-aa35-11b875dc1226" class="image"><a href="Twitter%20case%20study%20Onboarding%20that%20made%20a%20differen/Screenshot_2014-10-10_12.21.07.png"><img style="width:2170px" src="Twitter%20case%20study%20Onboarding%20that%20made%20a%20differen/Screenshot_2014-10-10_12.21.07.png"/></a></figure></div><div style="display:contents" dir="auto"><p id="ebc3675a-e2e0-477c-99d1-d3292e56959e" class="">
+</p></div><div style="display:contents" dir="auto"><p id="7e4d2af3-61e3-4276-97ec-44971bd13751" class="">This was an add contacts screen, but I wanted to write it in a way that showed value. We knew adding your contact was important, so verb first: Find. The body copy provided the reassurance. Research showed, at that time, people didn’t want us spamming their contacts. </p></div><div style="display:contents" dir="auto"><p id="9b30a234-7109-472c-bb08-7a69922f7aa4" class="">
+</p></div><div style="display:contents" dir="ltr"><figure id="524cf424-4906-4186-941e-e4fe2ccd8e25" class="image"><a href="Twitter%20case%20study%20Onboarding%20that%20made%20a%20differen/Screenshot_2014-10-10_12.21.42.png"><img style="width:2210px" src="Twitter%20case%20study%20Onboarding%20that%20made%20a%20differen/Screenshot_2014-10-10_12.21.42.png"/></a></figure></div><div style="display:contents" dir="auto"><h3 id="93b6ff2a-01e7-4755-8da9-b23d8e52de44" class=""><span style="border-bottom:0.05em solid">Outcomes</span></h3></div><div style="display:contents" dir="auto"><p id="32149883-e522-434f-a803-88b6031921f3" class="">Overall, Instant Timeline:</p></div><div style="display:contents" dir="auto"><ul id="70cc8906-a664-4653-b8fc-f61b753fcb7e" class="bulleted-list"><li style="list-style-type:disc">increased the number of people new users followed by 190%, </li></ul></div><div style="display:contents" dir="auto"><ul id="30cd271a-c708-4736-b7f9-a4eee33976aa" class="bulleted-list"><li style="list-style-type:disc">gained a 10% absolute increase in sign-up completion, </li></ul></div><div style="display:contents" dir="auto"><ul id="c3c54e3c-f115-47f1-8296-3e86bed3cd15" class="bulleted-list"><li style="list-style-type:disc">and increased retention by 8%.</li></ul></div><div style="display:contents" dir="auto"><div id="244f4665-c736-4578-8728-c4faa9988dcc" class="column-list"><div style="display:contents" dir="auto"><div id="5278dd63-a839-4a0a-b1bf-995c035068c5" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="e404b110-9bce-4d88-a0e0-7580d67dfd40" class="image"><a href="Twitter%20case%20study%20Onboarding%20that%20made%20a%20differen/Screenshot_2024-07-16_at_11.50.37_PM.png"><img style="width:1392px" src="Twitter%20case%20study%20Onboarding%20that%20made%20a%20differen/Screenshot_2024-07-16_at_11.50.37_PM.png"/></a></figure></div></div></div><div style="display:contents" dir="auto"><div id="7b710f9c-0470-4199-8ce6-4a4a1024d955" style="width:50%" class="column"><div style="display:contents" dir="ltr"><figure id="0d4506aa-05d5-4c5b-a4ba-dbdc0c6f7ec4" class="image"><a href="Twitter%20case%20study%20Onboarding%20that%20made%20a%20differen/Screenshot_2024-06-04_at_10.40.44_AM.png"><img style="width:384px" src="Twitter%20case%20study%20Onboarding%20that%20made%20a%20differen/Screenshot_2024-06-04_at_10.40.44_AM.png"/></a></figure></div></div></div></div></div><div style="display:contents" dir="ltr"><figure id="41252ab5-76ec-451e-a8ce-6c377cc4d578" class="image"><a href="Twitter%20case%20study%20Onboarding%20that%20made%20a%20differen/Screenshot_2024-07-16_at_11.53.11_PM.png"><img style="width:2550px" src="Twitter%20case%20study%20Onboarding%20that%20made%20a%20differen/Screenshot_2024-07-16_at_11.53.11_PM.png"/></a></figure></div><div style="display:contents" dir="auto"><ul id="0ef33633-a3ca-4cf0-894d-7996905e9b2f" class="toggle"><li><details open=""><summary><span style="border-bottom:0.05em solid">Lessons</span></summary><div style="display:contents" dir="auto"><ol type="1" id="169af31e-5ba4-4614-9200-e65e45a2bb5c" class="numbered-list" start="1"><li>I was part of a tiny team doing our first product marketing. Because we had no research, I used insights released by the Obama campaign to write successful email headlines. </li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="ce341710-5476-49d7-8e6e-25063c4d04e7" class="numbered-list" start="2"><li>Because I was the first CD and only for a long time, I had to learn how to set boundaries and clearly communicate priorities. Learning how to say no, in a nice but firm way, was key.</li></ol></div><div style="display:contents" dir="auto"><ol type="1" id="52ce38eb-406c-43b8-ab9c-cc15d91de7c3" class="numbered-list" start="3"><li>We got some criticism about how lightly colored and hard to see the “skip” was and this was the beginning of learning about first and third party data issues and how consumers understand them.</li></ol></div></details></li></ul></div><div style="display:contents" dir="auto"><h3 id="bded57a0-a7f7-45b1-be4c-e7defc6be17e" class=""><span style="border-bottom:0.05em solid">Leadership</span></h3></div><div style="display:contents" dir="auto"><p id="914b7dd4-4920-44ee-a561-1d6455d6f6f5" class="">I evangelized the CD discipline &amp; practice at Twitter a lot, starting with the engineers who I’d help with copy as they shipped product out the door, to Legal, to the Trust and Safety team, as well as to close partners like PM, Product Design, UX Research and comms. I had a short “what is content design?!” deck that I presented during workshops and held office hours to support across the company.</p></div><div style="display:contents" dir="auto"><ul id="1845f2d2-f7d3-4016-9eec-a096b10275c4" class="toggle"><li><details open=""><summary>I wrote Twitter’s first Voice &amp; Tone Guide (Style Guide)</summary><div style="display:contents" dir="ltr"><figure id="724d774b-19c6-47dc-867c-49f3a50e2db5"><div class="source"><a href="Twitter%20case%20study%20Onboarding%20that%20made%20a%20differen/Twitter_Style_guide_(1).pdf">https://prod-files-secure.s3.us-west-2.amazonaws.com/f687b912-48a7-4386-81ce-79ad407c8b77/0e36304d-3b3f-4a6b-b204-26510cd4b0ca/Twitter_Style_guide_(1).pdf</a></div></figure></div></details></li></ul></div><div style="display:contents" dir="auto"><ul id="41fa57da-ad3e-4fdb-8c80-100bace581c4" class="toggle"><li><details open=""><summary>Also, the very first: About Page Content Strategy.</summary><div style="display:contents" dir="ltr"><figure id="18a7f276-a277-4c0b-9463-83e40416567a"><div class="source"><a href="Twitter%20case%20study%20Onboarding%20that%20made%20a%20differen/About_Content_Strategy_.pdf">https://prod-files-secure.s3.us-west-2.amazonaws.com/f687b912-48a7-4386-81ce-79ad407c8b77/eed2a6ad-1714-47a8-bba8-f0b17fa7bf78/About_Content_Strategy_.pdf</a></div></figure></div></details></li></ul></div><div style="display:contents" dir="auto"><p id="530768df-bf9f-4570-b9a1-a9b2d548db3e" class="">
+</p></div><div style="display:contents" dir="auto"><hr id="d41a6feb-b3eb-436b-a281-dc192db8a42a"/></div><div style="display:contents" dir="auto"><h3 id="2ba15547-30ca-49bc-8904-5059499aaf88" class=""><strong><span style="border-bottom:0.05em solid">Extras</span></strong></h3></div><div style="display:contents" dir="auto"><ul id="a4648940-b467-41a4-8e66-204cb7e36ccb" class="toggle"><li><details open=""><summary>Answering the What is Twitter question</summary><div style="display:contents" dir="ltr"><figure id="3b5ab965-3ad4-4217-80b9-48c3eda32044"><div class="source"><a href="Twitter%20case%20study%20Onboarding%20that%20made%20a%20differen/What_is_Twitter-2.mov">https://prod-files-secure.s3.us-west-2.amazonaws.com/f687b912-48a7-4386-81ce-79ad407c8b77/78378ca5-0976-4e7e-b9d3-5206a734b2c2/What_is_Twitter-2.mov</a></div></figure></div></details></li></ul></div></div></article><span class="sans" style="font-size:14px;padding-top:2em"></span></body></html>
